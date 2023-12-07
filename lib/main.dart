@@ -1,8 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:growing_cell/launcher/launcher_view.dart';
+import 'package:window_size/window_size.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (Platform.isMacOS) {
+    setWindowMinSize(const Size(1200, 800));
+  }
   runApp(const ProviderScope(child: MyApp()));
 }
 

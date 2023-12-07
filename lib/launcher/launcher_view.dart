@@ -23,7 +23,7 @@ class LauncherView extends ConsumerWidget {
     return Scaffold(
       body: Center(
         child: Container(
-          padding: const EdgeInsets.all(100),
+          padding: const EdgeInsets.all(50),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
