@@ -1,16 +1,28 @@
 # growing_cell
 
-A new Flutter project.
+動物並べゲームの1人プレイ用デスクトップアプリ
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Macユーザの人は[Release](https://github.com/ushitora/flutter_animalize/releases)からダウンロードしてみてください．
 
-A few resources to get you started if this is your first Flutter project:
+その他，Debugモードで開きたい場合は以下の手順を試してみてください．
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Install Flutter
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+詳細は[こちら](https://docs.flutter.dev/get-started/install)から
+
+### Clone this repository
+
+```sh
+git clone https://github.com/ushitora/flutter_animalize
+```
+
+### Run
+
+```sh
+cd flutter_animalize
+flutter pub get
+flutter run -d macos
+```
+`macos`は自分の環境に合わせて`windows`や`linux`などに変えてください
