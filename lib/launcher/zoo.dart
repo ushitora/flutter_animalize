@@ -39,31 +39,41 @@ class ZooView extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("${player.name}'s target", style: AdjusterView.textStyle),
-        Listener(
-          onPointerSignal: (signal) {
-            if (signal is PointerScrollEvent) {
-              double dy = signal.scrollDelta.dy;
-              if (dy > 1) {
-                setNextAnimal(ref, player);
-              }
-              if (dy < -1) {
-                setPrevAnimal(ref, player);
-              }
-            }
+        GestureDetector(
+          onPanUpdate: (details) {
+            double dy = details.delta.dy;
+            onScrolled(ref, player, dy);
           },
-          child: DropdownButton(
-            itemHeight: animalSize,
-            value: player.targetAnimal,
-            items: items,
-            onChanged: (animal) {
-              if (animal != null) {
-                ref.read(gameProvider).setTargetAnimal(animal, player);
+          child: Listener(
+            onPointerSignal: (signal) {
+              if (signal is PointerScrollEvent) {
+                double dy = signal.scrollDelta.dy;
+                onScrolled(ref, player, dy);
               }
             },
+            child: DropdownButton(
+              itemHeight: animalSize,
+              value: player.targetAnimal,
+              items: items,
+              onChanged: (animal) {
+                if (animal != null) {
+                  ref.read(gameProvider).setTargetAnimal(animal, player);
+                }
+              },
+            ),
           ),
         ),
       ],
     );
+  }
+
+  void onScrolled(WidgetRef ref, Agent player, double dy) {
+    if (dy > 1) {
+      setNextAnimal(ref, player);
+    }
+    if (dy < -1) {
+      setPrevAnimal(ref, player);
+    }
   }
 
   void setNextAnimal(WidgetRef ref, Agent player) {
