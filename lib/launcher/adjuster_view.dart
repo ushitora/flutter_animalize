@@ -3,10 +3,12 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AdjusterView extends ConsumerWidget {
-  static const textStyle = TextStyle(fontSize: 20, color: Colors.black54);
-  static const numberStyle = TextStyle(fontSize: 24, color: Colors.black87);
+  static const iconSize = 40.0;
+  static const textStyle = TextStyle(fontSize: 40, color: Colors.black54);
+  static const numberStyle =
+      TextStyle(fontSize: iconSize * 1.2, color: Colors.black87);
   static const numberWidth = 40.0;
-  static const adjusterWidth = 120.0;
+  static const adjusterWidth = 200.0;
 
   final String label;
   final int value;
@@ -23,29 +25,36 @@ class AdjusterView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ListTile(
-      title: Text(label, style: textStyle),
-      trailing: SizedBox(
-        width: adjusterWidth,
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: onMinusButtonPressed,
-              icon: const Icon(Icons.remove),
-            ),
-            SizedBox(
-              width: numberWidth,
-              child: Center(
-                child: Text("$value", style: numberStyle),
+    return Row(
+      children: [
+        Text(label, style: textStyle),
+        const Spacer(),
+        SizedBox(
+          width: adjusterWidth,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: onMinusButtonPressed,
+                icon: const Icon(Icons.remove, size: iconSize),
               ),
-            ),
-            IconButton(
-              onPressed: onPlusButtonPressed,
-              icon: const Icon(Icons.add),
-            ),
-          ],
+              SizedBox(
+                width: numberWidth,
+                child: Text(
+                  "$value",
+                  style: numberStyle,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              IconButton(
+                onPressed: onPlusButtonPressed,
+                icon: const Icon(Icons.add, size: iconSize),
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

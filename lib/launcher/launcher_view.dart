@@ -9,7 +9,8 @@ import 'package:growing_cell/launcher/adjuster_view.dart';
 import 'package:growing_cell/launcher/zoo.dart';
 
 class LauncherView extends ConsumerWidget {
-  static const iconSize = 40.0;
+  static const iconSize = 60.0;
+  static const borderWidth = 10.0;
   static const iconBgColor = Colors.blueGrey;
   static final iconFgColor = Colors.blueGrey[50]!;
 
@@ -19,77 +20,83 @@ class LauncherView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var game = ref.watch(gameProvider).model;
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(100),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
+      body: Center(
+        child: FittedBox(
+          fit: BoxFit.contain,
+          child: Container(
+            padding: const EdgeInsets.all(100),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Positioned(
-                  child: Padding(
-                    padding: const EdgeInsets.all(iconSize),
-                    child: Container(
-                      width: 400,
-                      height: 400,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                        color: iconBgColor.shade200,
-                        width: 5,
-                      )),
-                      child: const FittedBox(
-                        child: BoardView(),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: CircleAvatar(
-                    backgroundColor: iconBgColor,
-                    radius: iconSize,
-                    child: IconButton(
-                      tooltip: "start game",
-                      icon: FittedBox(
-                          child: Icon(Icons.fullscreen,
-                              size: iconSize, color: iconFgColor)),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (ctx) => const HomeView()));
-                      },
-                    ),
-                  ),
-                )
-              ],
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                Stack(
                   children: [
-                    AdjusterView(
-                      label: "Board Size",
-                      value: game.board.W,
-                      onMinusButtonPressed: () => decreaseBoardSize(ref),
-                      onPlusButtonPressed: () => increaseBoardSize(ref),
-                    ),
-                    FittedBox(
-                      child: Row(
-                        children: [
-                          for (var player in game.players) ZooView(player),
-                        ],
+                    Positioned(
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.all(iconSize - borderWidth / 2),
+                        child: Container(
+                          width: 1000,
+                          height: 1000,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                            color: iconBgColor.shade200,
+                            width: borderWidth,
+                          )),
+                          child: const FittedBox(
+                            child: BoardView(),
+                          ),
+                        ),
                       ),
                     ),
+                    Positioned(
+                      right: 0,
+                      top: 0,
+                      child: CircleAvatar(
+                        backgroundColor: iconBgColor,
+                        radius: iconSize,
+                        child: IconButton(
+                          tooltip: "start game",
+                          icon: FittedBox(
+                              child: Icon(Icons.fullscreen,
+                                  size: iconSize, color: iconFgColor)),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (ctx) => const HomeView()));
+                          },
+                        ),
+                      ),
+                    )
                   ],
                 ),
-              ),
+                SizedBox(
+                  width: 850,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AdjusterView(
+                          label: "Board Size",
+                          value: game.board.W,
+                          onMinusButtonPressed: () => decreaseBoardSize(ref),
+                          onPlusButtonPressed: () => increaseBoardSize(ref),
+                        ),
+                        const Divider(thickness: 3),
+                        Row(
+                          children: [
+                            for (var player in game.players) ZooView(player),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

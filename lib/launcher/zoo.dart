@@ -7,7 +7,7 @@ import 'package:growing_cell/game/game_view_model.dart';
 import 'package:growing_cell/launcher/adjuster_view.dart';
 
 class ZooView extends ConsumerWidget {
-  static const animalSize = 200.0;
+  static const animalSize = 350.0;
 
   final Agent player;
 
