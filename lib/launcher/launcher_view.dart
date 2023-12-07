@@ -10,7 +10,7 @@ import 'package:growing_cell/launcher/zoo.dart';
 import 'package:growing_cell/utils/utils.dart';
 
 class LauncherView extends ConsumerWidget {
-  static const iconSize = 60.0;
+  static const iconSize = 40.0;
   static const borderWidth = 10.0;
   static const iconBgColor = Colors.blueGrey;
   static final iconFgColor = Colors.blueGrey[50]!;
@@ -28,52 +28,53 @@ class LauncherView extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                flex: 3,
-                child: FittedBox(
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.all(iconSize - borderWidth / 2),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                              color: iconBgColor.shade200,
-                              width: borderWidth,
-                            )),
-                            child: const FittedBox(
-                              child: BoardView(),
-                            ),
+              const Spacer(),
+              SizedBox(
+                width: 600,
+                height: 600,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.all(iconSize - borderWidth / 2),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                            color: iconBgColor.shade200,
+                            width: borderWidth,
+                          )),
+                          child: const FittedBox(
+                            child: BoardView(),
                           ),
                         ),
                       ),
-                      Positioned(
-                        right: 0,
-                        top: 0,
-                        child: CircleAvatar(
-                          backgroundColor: iconBgColor,
-                          radius: iconSize,
-                          child: IconButton(
-                            tooltip: "start game",
-                            icon: FittedBox(
-                                child: Icon(Icons.fullscreen,
-                                    size: iconSize * 1.5, color: iconFgColor)),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (ctx) => const HomeView()));
-                            },
-                          ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      top: 0,
+                      child: CircleAvatar(
+                        backgroundColor: iconBgColor,
+                        radius: iconSize,
+                        child: IconButton(
+                          tooltip: "start game",
+                          icon: FittedBox(
+                              child: Icon(Icons.fullscreen,
+                                  size: iconSize * 1.5, color: iconFgColor)),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (ctx) => const HomeView()));
+                          },
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              Container(
+              const Spacer(),
+              SizedBox(
                 width: 500,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
