@@ -31,7 +31,7 @@ class AnimalView extends ConsumerWidget {
     var gadgets = <Widget>[];
 
     var tiles = <(int, int), Agent>{};
-    var (oi, oj) = ((num - model.H) ~/ 2, (num - model.W) ~/ 2);
+    var (oi, oj) = ((num - model.height) ~/ 2, (num - model.width) ~/ 2);
     for (var (i, j) in model.points) {
       tiles[(i + oi, j + oj)] = player;
     }

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AdjusterView extends ConsumerWidget {
-  static const iconSize = 40.0;
-  static const textStyle = TextStyle(fontSize: 40, color: Colors.black54);
+  static const iconSize = 24.0;
+  static const textStyle = TextStyle(fontSize: 28, color: Colors.black54);
   static const numberStyle =
       TextStyle(fontSize: iconSize * 1.2, color: Colors.black87);
-  static const numberWidth = 40.0;
-  static const adjusterWidth = 200.0;
+  static const numberWidth = 50.0;
+  static const adjusterWidth = 150.0;
 
   final String label;
   final int value;

@@ -7,6 +7,7 @@ import 'package:growing_cell/game/game_view_model.dart';
 import 'package:growing_cell/home/home_view.dart';
 import 'package:growing_cell/launcher/adjuster_view.dart';
 import 'package:growing_cell/launcher/zoo.dart';
+import 'package:growing_cell/utils/utils.dart';
 
 class LauncherView extends ConsumerWidget {
   static const iconSize = 60.0;
@@ -21,81 +22,79 @@ class LauncherView extends ConsumerWidget {
     var game = ref.watch(gameProvider).model;
     return Scaffold(
       body: Center(
-        child: FittedBox(
-          fit: BoxFit.contain,
-          child: Container(
-            padding: const EdgeInsets.all(100),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Stack(
-                  children: [
-                    Positioned(
-                      child: Padding(
-                        padding:
-                            const EdgeInsets.all(iconSize - borderWidth / 2),
-                        child: Container(
-                          width: 1000,
-                          height: 1000,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                            color: iconBgColor.shade200,
-                            width: borderWidth,
-                          )),
-                          child: const FittedBox(
-                            child: BoardView(),
+        child: Container(
+          padding: const EdgeInsets.all(100),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 3,
+                child: FittedBox(
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.all(iconSize - borderWidth / 2),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                              color: iconBgColor.shade200,
+                              width: borderWidth,
+                            )),
+                            child: const FittedBox(
+                              child: BoardView(),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      right: 0,
-                      top: 0,
-                      child: CircleAvatar(
-                        backgroundColor: iconBgColor,
-                        radius: iconSize,
-                        child: IconButton(
-                          tooltip: "start game",
-                          icon: FittedBox(
-                              child: Icon(Icons.fullscreen,
-                                  size: iconSize, color: iconFgColor)),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (ctx) => const HomeView()));
-                          },
+                      Positioned(
+                        right: 0,
+                        top: 0,
+                        child: CircleAvatar(
+                          backgroundColor: iconBgColor,
+                          radius: iconSize,
+                          child: IconButton(
+                            tooltip: "start game",
+                            icon: FittedBox(
+                                child: Icon(Icons.fullscreen,
+                                    size: iconSize * 1.5, color: iconFgColor)),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (ctx) => const HomeView()));
+                            },
+                          ),
                         ),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  width: 850,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AdjusterView(
-                          label: "Board Size",
-                          value: game.board.W,
-                          onMinusButtonPressed: () => decreaseBoardSize(ref),
-                          onPlusButtonPressed: () => increaseBoardSize(ref),
-                        ),
-                        const Divider(thickness: 3),
-                        Row(
-                          children: [
-                            for (var player in game.players) ZooView(player),
-                          ],
-                        ),
-                      ],
-                    ),
+                      )
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              Container(
+                width: 500,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AdjusterView(
+                      label: "Board Size",
+                      value: game.board.W,
+                      onMinusButtonPressed: () => decreaseBoardSize(ref),
+                      onPlusButtonPressed: () => increaseBoardSize(ref),
+                    ),
+                    const Divider(thickness: 3),
+                    const SizedBox(height: 50),
+                    Row(
+                      children: [
+                        for (var i in range(game.players.length)) ZooView(i),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

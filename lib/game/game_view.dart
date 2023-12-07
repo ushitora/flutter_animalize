@@ -9,11 +9,14 @@ class GameView extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Row(
       children: [
-        Expanded(child: FittedBox(child: BoardView())),
-        Padding(
-          padding: EdgeInsets.all(30),
-          child: SizedBox(
-            width: 300,
+        Expanded(
+          flex: 3,
+          child: FittedBox(child: BoardView()),
+        ),
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding: EdgeInsets.all(20),
             child: FittedBox(child: InfoView()),
           ),
         ),

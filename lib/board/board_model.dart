@@ -46,8 +46,8 @@ class BoardModel {
 
   bool checkAnimalExists(Agent agent, AnimalModel animal) {
     for (var shape in animal.allShapes) {
-      for (int ri in range(H - shape.H)) {
-        for (int rj in range(W - shape.W)) {
+      for (int ri in range(H - shape.height)) {
+        for (int rj in range(W - shape.width)) {
           bool equiv = true;
           for (var (i, j) in shape.points) {
             if (tiles[ri + i][rj + j] != agent) {

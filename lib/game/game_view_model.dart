@@ -46,6 +46,9 @@ class GameViewModel extends ChangeNotifier {
 
   void setTargetAnimal(AnimalModel animal, Agent player) {
     int idx = model.players.indexOf(player);
+    if (idx == -1) {
+      return;
+    }
     var players = [...model.players];
     players[idx] = Agent(animal, players[idx].name, players[idx].color);
     var newModel =

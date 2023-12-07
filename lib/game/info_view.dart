@@ -4,7 +4,7 @@ import 'package:growing_cell/agent/agent_view.dart';
 import 'package:growing_cell/game/game_view_model.dart';
 
 class InfoView extends ConsumerWidget {
-  static const scoreStyle = TextStyle(fontSize: 40);
+  static const textStyle = TextStyle(fontSize: 40);
 
   const InfoView({super.key});
 
@@ -21,7 +21,7 @@ class InfoView extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         ...scores,
-        if (winner != null) Text("${winner.name} win!", style: scoreStyle),
+        if (winner != null) Text("${winner.name} win!", style: textStyle),
       ],
     );
   }

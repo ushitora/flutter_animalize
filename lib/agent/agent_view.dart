@@ -7,7 +7,7 @@ import 'package:growing_cell/game/game_view_model.dart';
 
 class AgentView extends ConsumerWidget {
   static const animalSize = 100.0;
-  static const textStyle = TextStyle(fontSize: 24, color: Colors.black87);
+  static const textStyle = TextStyle(fontSize: 20, color: Colors.black87);
 
   final Agent player;
 

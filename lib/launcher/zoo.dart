@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:growing_cell/agent/agent_model.dart';
@@ -7,15 +10,15 @@ import 'package:growing_cell/game/game_view_model.dart';
 import 'package:growing_cell/launcher/adjuster_view.dart';
 
 class ZooView extends ConsumerWidget {
-  static const animalSize = 350.0;
+  static const animalSize = 225.0;
 
-  final Agent player;
+  final int playerId;
 
-  const ZooView(this.player, {super.key});
+  const ZooView(this.playerId, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(gameProvider);
+    var player = ref.watch(gameProvider).model.players[playerId];
 
     var items = [
       for (var animal in AnimalModel.primaries)
@@ -32,12 +35,23 @@ class ZooView extends ConsumerWidget {
         )
     ];
 
-    return Container(
-      padding: const EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Text("${player.name}'s target", style: AdjusterView.textStyle),
-          DropdownButton(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("${player.name}'s target", style: AdjusterView.textStyle),
+        Listener(
+          onPointerSignal: (signal) {
+            if (signal is PointerScrollEvent) {
+              double dy = signal.scrollDelta.dy;
+              if (dy > 1) {
+                setNextAnimal(ref, player);
+              }
+              if (dy < -1) {
+                setPrevAnimal(ref, player);
+              }
+            }
+          },
+          child: DropdownButton(
             itemHeight: animalSize,
             value: player.targetAnimal,
             items: items,
@@ -47,8 +61,24 @@ class ZooView extends ConsumerWidget {
               }
             },
           ),
-        ],
-      ),
+        ),
+      ],
     );
+  }
+
+  void setNextAnimal(WidgetRef ref, Agent player) {
+    int idx = AnimalModel.primaries.indexOf(player.targetAnimal);
+    if (idx == -1) return;
+    idx = min(idx + 1, AnimalModel.primaries.length - 1);
+    var animal = AnimalModel.primaries[idx];
+    ref.read(gameProvider).setTargetAnimal(animal, player);
+  }
+
+  void setPrevAnimal(WidgetRef ref, Agent player) {
+    int idx = AnimalModel.primaries.indexOf(player.targetAnimal);
+    if (idx == -1) return;
+    idx = max(idx - 1, 0);
+    var animal = AnimalModel.primaries[idx];
+    ref.read(gameProvider).setTargetAnimal(animal, player);
   }
 }
