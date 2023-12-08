@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-Macユーザの人は[Release](https://github.com/ushitora/flutter_animalize/releases/latest)からダウンロードしてみてください．
+Mac / Windowsの人は[Release](https://github.com/ushitora/flutter_animalize/releases/latest)からダウンロードしてみてください．
 
 その他，Debugモードで開きたい場合は以下の手順を試してみてください．
 
