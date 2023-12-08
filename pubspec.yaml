@@ -46,6 +46,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  msix: ^2.1.3
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -95,3 +96,15 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+msix_config:
+  display_name: Animalize
+  publisher_display_name: myserver.mydomain.com
+  publisher: C = JP, ST = Miyagi, L = Sendai, O = ushitora
+  identity_name: animalize
+  msix_version: 1.0.0.0
+  certificate_path: C:\Users\yoshi\selfsigned\CERTIFICATE.pfx
+  certificate_password: animalize
+  icons_background_color: "#ffffff"
+  architecture: x64
+  capabilities: ""
